@@ -124,6 +124,7 @@ fi
 
 export METRICS="True"
 export LOGGING="True"
+export SERVICE_CATALOG="False"
 
 memory=$(cat /proc/meminfo | grep MemTotal | sed "s/MemTotal:[ ]*\([0-9]*\) kB/\1/")
 
