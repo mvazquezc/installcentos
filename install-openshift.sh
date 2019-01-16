@@ -12,6 +12,10 @@ export VERSION=${VERSION:="3.11"}
 export SCRIPT_REPO=${SCRIPT_REPO:="https://raw.githubusercontent.com/mvazquezc/installcentos/master"}
 export IP=${IP:="$(ip route get 8.8.8.8 | awk '{print $7;exit}')"}
 export API_PORT=${API_PORT:="8443"}
+export METRICS=${METRICS:="False"}
+export LOGGING=${LOGGING:="False"}
+export SERVICE_CATALOG=${SERVICE_CATALOG:="False"}
+
 
 ## Make the script interactive to set the variables
 if [ "$INTERACTIVE" = "true" ]; then
@@ -43,6 +47,21 @@ if [ "$INTERACTIVE" = "true" ]; then
 	if [ "$choice" != "" ] ; then
 		export API_PORT="$choice";
 	fi 
+
+        read -rp "Install Metrics: ($METRICS): " choice;
+	if [ "$choice" != "" ] ; then
+		export METRICS="$choice";
+	fi
+
+        read -rp "Install Logging: ($LOGGING): " choice;
+	if [ "$choice" != "" ] ; then
+		export LOGGING="$choice";
+	fi
+
+        read -rp "Install Service Catalog: ($SERVICE_CATALOG): " choice;
+	if [ "$choice" != "" ] ; then
+		export SERVICE_CATALOG="$choice";
+	fi
 
 	echo
 
@@ -122,9 +141,6 @@ if [ ! -f ~/.ssh/id_rsa ]; then
 	ssh -o StrictHostKeyChecking=no root@$IP "pwd" < /dev/null
 fi
 
-export METRICS="True"
-export LOGGING="True"
-export SERVICE_CATALOG="False"
 
 
 memory=$(cat /proc/meminfo | grep MemTotal | sed "s/MemTotal:[ ]*\([0-9]*\) kB/\1/")
