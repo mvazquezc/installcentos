@@ -9,8 +9,8 @@ export DOMAIN=${DOMAIN:="$(curl -s ipinfo.io/ip).nip.io"}
 export USERNAME=${USERNAME:="$(whoami)"}
 export PASSWORD=${PASSWORD:=password}
 export VERSION=${VERSION:="3.11"}
-export SCRIPT_REPO=${SCRIPT_REPO:="https://raw.githubusercontent.com/gshipley/installcentos/master"}
-export IP=${IP:="$(ip route get 8.8.8.8 | awk '{print $NF; exit}')"}
+export SCRIPT_REPO=${SCRIPT_REPO:="https://raw.githubusercontent.com/mvazquezc/installcentos/master"}
+export IP=${IP:="$(ip route get 8.8.8.8 | awk '{print $7;exit}')"}
 export API_PORT=${API_PORT:="8443"}
 
 ## Make the script interactive to set the variables
@@ -125,6 +125,7 @@ fi
 export METRICS="True"
 export LOGGING="True"
 export SERVICE_CATALOG="False"
+
 
 memory=$(cat /proc/meminfo | grep MemTotal | sed "s/MemTotal:[ ]*\([0-9]*\) kB/\1/")
 
