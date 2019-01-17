@@ -15,6 +15,7 @@ export API_PORT=${API_PORT:="8443"}
 export METRICS=${METRICS:="False"}
 export LOGGING=${LOGGING:="False"}
 export SERVICE_CATALOG=${SERVICE_CATALOG:="False"}
+export PROMETHEUS=${PROMETHEUS:="False"}
 
 
 ## Make the script interactive to set the variables
@@ -61,6 +62,11 @@ if [ "$INTERACTIVE" = "true" ]; then
         read -rp "Install Service Catalog: ($SERVICE_CATALOG): " choice;
 	if [ "$choice" != "" ] ; then
 		export SERVICE_CATALOG="$choice";
+	fi
+
+        read -rp "Install Prometheus: ($PROMETHEUS): " choice;
+	if [ "$choice" != "" ] ; then
+		export PROMETHEUS="$choice";
 	fi
 
 	echo
