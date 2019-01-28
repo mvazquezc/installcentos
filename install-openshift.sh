@@ -4,7 +4,6 @@
 
 ## Default variables to use
 export INTERACTIVE=${INTERACTIVE:="true"}
-export PVS=${INTERACTIVE:="true"}
 export DOMAIN=${DOMAIN:="$(curl -s ipinfo.io/ip).nip.io"}
 export USERNAME=${USERNAME:="$(whoami)"}
 export PASSWORD=${PASSWORD:=password}
@@ -16,6 +15,7 @@ export METRICS=${METRICS:="False"}
 export LOGGING=${LOGGING:="False"}
 export SERVICE_CATALOG=${SERVICE_CATALOG:="False"}
 export PROMETHEUS=${PROMETHEUS:="False"}
+export PVS=${PVS:="True"}
 
 
 ## Make the script interactive to set the variables
@@ -68,6 +68,11 @@ if [ "$INTERACTIVE" = "true" ]; then
 	if [ "$choice" != "" ] ; then
 		export PROMETHEUS="$choice";
 	fi
+
+        read -rp "Create PVs: ($PVS): " choice;
+        if [ "$choice" != "" ] ; then
+                export PVS="$choice";
+        fi
 
 	echo
 
@@ -184,7 +189,7 @@ ansible-playbook -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
 htpasswd -b /etc/origin/master/htpasswd ${USERNAME} ${PASSWORD}
 oc adm policy add-cluster-role-to-user cluster-admin ${USERNAME}
 
-if [ "$PVS" = "true" ]; then
+if [ "$PVS" = "True" ]; then
 
 	curl -o vol.yaml $SCRIPT_REPO/vol.yaml
 
