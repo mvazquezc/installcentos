@@ -8,6 +8,6 @@ spec:
   accessModes:
     - ReadWriteOnce     
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Recycle
   hostPath:
     path: /mnt/data/vol
